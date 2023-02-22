@@ -35,6 +35,10 @@ export const initialState: State = {
       });
     }
   }),
+  debugger: {
+    sources: null,
+    session: null
+  },
   decoder: null,
   decoderCompilations: null,
   decoderCompilationHashes: null,
@@ -65,6 +69,8 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, notice: { ...state.notice, ...data } };
     case "set-analytics-config":
       return { ...state, analyticsConfig: data };
+    case "set-debugger-sources-and-session":
+      return { ...state, debugger: data };
     case "handle-message":
       // Copy state,
       // modify it depending on message type,

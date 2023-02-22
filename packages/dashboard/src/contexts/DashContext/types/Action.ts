@@ -1,13 +1,20 @@
 import type { ReceivedMessageLifecycle } from "@truffle/dashboard-message-bus-client";
 import type { Message } from "@truffle/dashboard-message-bus-common";
 import type { State } from "src/contexts/DashContext/types";
+import type { Source, Session } from "src/utils/debugger";
 
 export type ActionType =
   | "set-decoder"
   | "set-chain-info"
   | "set-notice"
   | "set-analytics-config"
-  | "handle-message";
+  | "handle-message"
+  | "set-debugger-sources-and-session";
+
+export type SetDebuggerSourcesAndSessionArgs = {
+  sources: Source[];
+  session: Session;
+};
 
 export interface BaseAction {
   type: ActionType;
@@ -19,6 +26,11 @@ export interface SetDecoderAction extends BaseAction {
     State,
     "decoder" | "decoderCompilations" | "decoderCompilationHashes"
   >;
+}
+
+export interface SetDebuggerSourcesAndSessionAction extends BaseAction {
+  type: "set-debugger-sources-and-session";
+  data: SetDebuggerSourcesAndSessionArgs;
 }
 
 export interface SetChainInfoAction extends BaseAction {
@@ -46,4 +58,5 @@ export type Action =
   | SetChainInfoAction
   | SetNoticeAction
   | SetAnalyticsConfigAction
-  | HandleMessageAction;
+  | HandleMessageAction
+  | SetDebuggerSourcesAndSessionAction;
